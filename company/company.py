@@ -8,7 +8,7 @@ class Cookies:
     def __init__(self, bot):
         self.bot = bot
         try:
-            self.db = dataIO.load_json("data/cookies.json")  # load cookie db
+            self.db = dataIO.load_json("data/company.json")  # load company db
         except FileNotFoundError:
             self.db = {}
 
@@ -43,11 +43,23 @@ class Cookies:
         else:
             await self.bot.say('Create a company with [prefix]company create')  # says you need a account
 
-    @company.command(pass_context=True)
+    @company.command(pass_context=True) # puts money into your company bank
     async def invest(self, ctx, *, amount: int):
         bank = self.bot.get_cog('Economy').bank
-        if amount > 0 and amount % chip_multiple == 0:
+        if amount > 0:
                     if bank.can_spend(user, amount):
                         bank.withdraw_credits(user, amount)
-                        self.db[ctx.message.server.id][ctx.message.author.id] = self.db[ctx.message.server.id][ctx.message.author.id] + amount
+                        self.db[ctx.message.server.id][ctx.message.author.id] += amount
                         dataIO.save_json(self.file_path, self.system)
+                    else:
+                        await self.bot.say('Get more money or get a company with [prefix]company create')
+                        
+    @company.command(pass_context=True) # takes money out of your company bank
+    async def unvest(self, ctx, *, amount: int):
+        bank = self.bot.get_cog('Economy').bank
+        if amount > 0 and self.db[ctx.message.server.id][ctx.message.author.id] > 0:
+                        bank.withdraw_credits(user, amount)
+                        self.db[ctx.message.server.id][ctx.message.author.id] -= amount
+                        dataIO.save_json(self.file_path, self.system)
+        else:
+                        await self.bot.say('Get more money or get a company with [prefix]company create')
