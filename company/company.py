@@ -42,6 +42,7 @@ class Cookies:
             await self.bot.say('The Company owned by User {}  Has: {} funds.'.format(user.name, userdb))
         else:
             await self.bot.say('Create a company with [prefix]company create')  # says you need a account
+
     @company.command(pass_context=True)
     async def invest(self, ctx, *, amount: int):
         bank = self.bot.get_cog('Economy').bank
