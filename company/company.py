@@ -58,7 +58,7 @@ class Cookies:
     async def unvest(self, ctx, *, amount: int):
         bank = self.bot.get_cog('Economy').bank
         if amount > 0 and self.db[ctx.message.server.id][ctx.message.author.id] > 0:
-                        bank.withdraw_credits(user, amount)
+                        bank.deposit_credits(user, amount)
                         self.db[ctx.message.server.id][ctx.message.author.id] -= amount
                         dataIO.save_json(self.file_path, self.system)
         else:
