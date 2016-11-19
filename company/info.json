@@ -1,0 +1,8 @@
+{
+    "AUTHOR" : "curl -x meouhmew#1627",
+    "DESCRIPTION" : "This cog is for companies",
+    "DISABLED" : false,
+    "INSTALL_MSG" : "Thanks for installing companies by curl -x meouhmew#1627.",
+    "NAME" : "company",
+    "SHORT" : "comp"
+}
