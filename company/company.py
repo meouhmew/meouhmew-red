@@ -63,6 +63,16 @@ class companycog:
                         dataIO.save_json(self.file_path, self.system)
         else:
                         await self.bot.say('Get more money or get a company with [prefix]company create')
+                
+    @company.command(pass_context=True) # sets money of your company bank
+    async def setmoney(self, ctx, *, amount: int):
+        bank = self.bot.get_cog('Economy').bank
+        if amount > 0 and [ctx.message.author.id] == "229280523472732160" or  "CompanyManager" in [r.name for r in ctx.message.author.roles]:
+                        self.db[ctx.message.server.id][ctx.message.author.id] = amount
+                        dataIO.save_json(self.file_path, self.system)
+        else:
+                        await self.bot.say('Get more money or get a company with [prefix]company create')
 
+                
 def setup(bot):
     bot.add_cog(companycog(bot))
