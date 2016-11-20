@@ -46,18 +46,18 @@ class companycog:
     @company.command(pass_context=True) # puts money into your company bank
     async def invest(self, ctx, *, amount: int, user: discord.Member= None):
         bank = self.bot.get_cog('Economy').bank
-        if amount > 0:
+        if amount > 0 and user.id in self.db[ctx.message.server.id]:
                     if bank.can_spend(user, amount):
                         bank.withdraw_credits(user, amount)
                         self.db[ctx.message.server.id][ctx.message.author.id] += amount
                         dataIO.save_json(self.file_path, self.system)
                     else:
-                        await self.bot.say('Get more money or get a company with [prefix]company create')
+                        await self.bot.say('Get more money on the Economy cog or get a company with [prefix]company create')
                         
     @company.command(pass_context=True) # takes money out of your company bank
     async def unvest(self, ctx, *, amount: int, user: discord.Member= None):
         bank = self.bot.get_cog('Economy').bank
-        if amount > 0 and self.db[ctx.message.server.id][ctx.message.author.id] > 0:
+        if amount > 0 and self.db[ctx.message.server.id][ctx.message.author.id] > 0 and user.id in self.db[ctx.message.server.id]:
                         bank.deposit_credits(user, amount)
                         self.db[ctx.message.server.id][ctx.message.author.id] -= amount
                         dataIO.save_json(self.file_path, self.system)
@@ -71,7 +71,7 @@ class companycog:
                         self.db[ctx.message.server.id][ctx.message.author.id] = amount
                         dataIO.save_json(self.file_path, self.system)
         else:
-                        await self.bot.say('Get more money or get a company with [prefix]company create')
+                        await self.bot.say('Get more money on the Company cog or get a company with [prefix]company create')
 
                 
 def setup(bot):
