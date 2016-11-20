@@ -4,7 +4,7 @@ import discord
 from __main__ import send_cmd_help
 
 
-class Cookies:
+class company:
     def __init__(self, bot):
         self.bot = bot
         try:
@@ -13,7 +13,7 @@ class Cookies:
             self.db = {}
 
     def save_db(self):
-        dataIO.save_json("data/cookies.json", self.db)
+        dataIO.save_json("data/company.json", self.db)
 
     @commands.group(no_pm=True, invoke_without_command=True, pass_context=True)
     async def company(self, ctx):
