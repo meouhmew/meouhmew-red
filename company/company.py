@@ -4,7 +4,7 @@ import discord
 from __main__ import send_cmd_help
 
 
-class company:
+class companycog:
     def __init__(self, bot):
         self.bot = bot
         try:
@@ -65,4 +65,4 @@ class company:
                         await self.bot.say('Get more money or get a company with [prefix]company create')
 
 def setup(bot):
-    bot.add_cog(company(bot))
+    bot.add_cog(companycog(bot))
