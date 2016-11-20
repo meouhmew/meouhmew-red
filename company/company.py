@@ -44,7 +44,7 @@ class companycog:
             await self.bot.say('Create a company with [prefix]company create')  # says you need a account
 
     @company.command(pass_context=True) # puts money into your company bank
-    async def invest(self, ctx, *, amount: int):
+    async def invest(self, ctx, *, amount: int, user: discord.Member= None):
         bank = self.bot.get_cog('Economy').bank
         if amount > 0:
                     if bank.can_spend(user, amount):
@@ -55,7 +55,7 @@ class companycog:
                         await self.bot.say('Get more money or get a company with [prefix]company create')
                         
     @company.command(pass_context=True) # takes money out of your company bank
-    async def unvest(self, ctx, *, amount: int):
+    async def unvest(self, ctx, *, amount: int, user: discord.Member= None):
         bank = self.bot.get_cog('Economy').bank
         if amount > 0 and self.db[ctx.message.server.id][ctx.message.author.id] > 0:
                         bank.deposit_credits(user, amount)
