@@ -63,3 +63,6 @@ class Cookies:
                         dataIO.save_json(self.file_path, self.system)
         else:
                         await self.bot.say('Get more money or get a company with [prefix]company create')
+
+def setup(bot):
+    bot.add_cog(company(bot))
